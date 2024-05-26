@@ -1,0 +1,75 @@
+﻿@model List<ServicesPlomberie.Models.Utilisateur>
+@{
+    Layout = "_Layout";
+}
+
+<div class="container-fluid page-header mb-5 py-5">
+    <div class="container">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Technicians</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb text-uppercase">
+               
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+<!-- Team Start -->
+@if (Model.Count == 0)
+{
+    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <i class="bi bi-exclamation-triangle display-1 text-primary"></i>
+                    <h1 class="display-1">404</h1>
+                    <h1 class="mb-4">Service not available</h1>
+                    <p class="mb-4">We’re sorry, the service  you have looked for does not exist in our website! Maybe go to our home page or try to use a search?</p>
+                    <a class="btn btn-primary rounded-pill py-3 px-5" href="">Go Back To Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}else{
+    
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="text-secondary text-uppercase">Our Technicians</h6>
+                <h1 class="mb-5">Our Expert Technicians</h1>
+            </div>
+            <div class="row g-4">
+                @foreach (var user in Model)
+                {
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="team-item">
+                            <div class="position-relative overflow-hidden">
+                               
+                                <img class="img-fluid" src="img/team-1.jpg" alt="">
+                            </div>
+                            <div class="team-text">
+                                <div class="bg-light">
+                                    <h5 class="fw-bold mb-0">@user.firstName</h5>
+                                    <small>@user.lastName</small>
+                                </div>
+                                <div class="bg-primary">
+                                    <a asp-action="Details" asp-route-id="@user.Id"><strong><p style="color:white">Details</p></strong></a> |
+                                    <!--⭐⭐⭐⭐-->
+                                    <!--a class="btn btn-square mx-1" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="btn btn-square mx-1" href=""><i class="fab fa-instagram"></i></a-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+}
+
+
+
+
+

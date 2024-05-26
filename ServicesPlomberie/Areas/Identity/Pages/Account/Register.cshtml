@@ -1,0 +1,156 @@
+﻿@page
+@model RegisterModel
+
+<div>
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data" style="margin-left:500px;padding:20px;" >
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Create a new account.</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-floating pb-3">
+                <input asp-for="Input.firstName" class="form-control" autocomplete="firstName" aria-required="true" />
+                <label asp-for="Input.firstName"></label>
+                <span asp-validation-for="Input.firstName" class="text-danger"></span>
+            </div>
+            <div class="form-floating pb-3">
+                <input asp-for="Input.lastName" class="form-control" autocomplete="lastName" aria-required="true" />
+                <label asp-for="Input.lastName"></label>
+                <span asp-validation-for="Input.lastName" class="text-danger"></span>
+            </div>
+            
+            <div class="form-floating pb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                <label asp-for="Input.Email"></label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-floating pb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.Password"></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-floating pb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.ConfirmPassword"></label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+                <div class="form-group">
+                    <label asp-for="Input.genre">Gender</label><br />
+                    <input type="checkbox" asp-for="Input.genre" value="M" /> Male
+                    <input type="checkbox" asp-for="Input.genre" value="F" /> Female
+                    <span asp-validation-for="Input.genre" class="text-danger"></span>
+                </div>
+            <div class="form-floating pb-3">
+                <input asp-for="Input.region" class="form-control" autocomplete="region" aria-required="true" />
+                <label asp-for="Input.region"></label>
+                <span asp-validation-for="Input.region" class="text-danger"></span>
+            </div>
+            
+            <div class="form-floating pb-3">
+                <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="new-password" aria-required="true" />
+                <label asp-for="Input.PhoneNumber"></label>
+                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group pb-3">
+                <select id="roleDropdown" asp-for="Input.role" class="form-select" aria-required="true">
+                    <option disabled selected>select role</option>
+                    @if (Model.Input.RoleList != null)
+                    {
+                        @foreach (var role in Model.Input.RoleList)
+                        {
+                            <option value="@role.Value">@role.Text</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="Input.role" class="text-danger"></span>
+            </div>
+            <div id="test" style="display:none">
+                
+                
+                <div class="form-group w-100 pb-3">
+                    <select asp-for="Input.service" class="form-select" aria-required="true" id="roleDropdown">
+                        <option disabled selected>select service</option>
+                        @if (Model.Input.services != null)
+                        {
+                            @foreach (var service in Model.Input.services)
+                            {
+                                <option value="@service.nom">@service.nom</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="Input.service" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w-100 pb-3">
+                    <select asp-for="Input.sousservice" class="form-select" aria-required="true" id="roleDropdown">
+                        <option disabled selected>select Speciality</option>
+                        @if (Model.Input.sousServices != null)
+                        {
+                            @foreach (var sousService in Model.Input.sousServices)
+                            {
+                                <option value="@sousService.nom">@sousService.nom</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="Input.sousservice" class="text-danger"></span>
+                </div>
+
+    </div>
+
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+
+ 
+        </form>
+</div>
+@if (!ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        <ul>
+            @foreach (var modelState in ViewData.ModelState.Values)
+            {
+                foreach (var error in modelState.Errors)
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            }
+        </ul>
+    </div>
+}
+
+    
+
+   
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+    var checkBox = document.getElementById("prestataireCheckbox");
+    
+    var message = document.getElementById("test");
+
+    
+        
+            document.addEventListener('DOMContentLoaded', function () {
+                var roleDropdown = document.getElementById('roleDropdown');
+
+                roleDropdown.addEventListener('change', function () {
+                    var selectedValue = roleDropdown.value;
+
+                    if (selectedValue === "travailleur") {
+                    message.style.display = "block";
+
+                        
+                } else {
+                    message.style.display = "none";
+                }
+                });
+            });
+
+        
+           
+</script>
+   
+
+
+
+
+
+

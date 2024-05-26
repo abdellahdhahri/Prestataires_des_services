@@ -1,0 +1,112 @@
+﻿   
+    <style>
+        .cards {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 10px;
+        }
+
+            .cards .red {
+                background-color: #f43f5e;
+            }
+
+            .cards .blue {
+                background-color: #3b82f6;
+            }
+
+            .cards .green {
+                background-color: #22c55e;
+            }
+
+            .cards .yellow {
+                background-color: #c5b822;
+            }
+
+            .cards .card {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                text-align: center;
+                height: 100px;
+                width: 250px;
+                border-radius: 10px;
+                color: white;
+                cursor: pointer;
+                transition: 400ms;
+            }
+
+                .cards .card p.tip {
+                    font-size: 1em;
+                    font-weight: 700;
+                }
+
+                .cards .card p.second-text {
+                    font-size: .7em;
+                }
+
+                .cards .card:hover {
+                    transform: scale(1.1, 1.1);
+                }
+
+            .cards:hover > .card:not(:hover) {
+                filter: blur(10px);
+                transform: scale(0.9, 0.9);
+            }
+    </style>
+
+<div>
+
+    <div class="dashboard" style="display:flex; justify-content:space-around;align-items:center; margin-top:150px;">
+        <div class="first">
+            <div class="top" style="display:flex;
+        justify-content:center; align-items:center; flex-direction:row;">
+                <div class="cards">
+                    <a asp-area="" asp-controller="RolesController1" asp-action="Index" style="text-decoration:none;">
+                        <div class="card red">
+                            <p class="tip">Roles</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="cards">
+                    <a asp-area="" asp-controller="Users" asp-action="users" style="text-decoration:none;">
+
+                        <div class="card yellow">
+                            <p class="tip">Users</p>
+
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+            <div class="sec">
+                <div class="top" style="display:flex;
+        justify-content:center; align-items:center; flex-direction:row;">
+                    <div class="cards">
+                        <a asp-area="" asp-controller="Services" asp-action="Services" style="text-decoration:none;">
+
+                            <div class="card green">
+                                <p class="tip">Services</p>
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="cards">
+                        <a asp-area="" asp-controller="Specialites" asp-action="Index" style="text-decoration:none;">
+
+                            <div class="card blue">
+                                <p class="tip">Sous Services</p>
+
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

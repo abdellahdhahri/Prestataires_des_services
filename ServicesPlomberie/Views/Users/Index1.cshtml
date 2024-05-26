@@ -1,0 +1,28 @@
+﻿@model List<ServicesPlomberie.Models.Utilisateur>
+
+<h1>from index1</h1>
+
+@if (Model.Count == 0)
+{
+    <h3> Ooups Travailleur introuvable!........</h3>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.firstName</td>
+                    <td>@user.lastName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

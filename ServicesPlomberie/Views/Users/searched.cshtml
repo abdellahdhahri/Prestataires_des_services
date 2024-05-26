@@ -1,0 +1,10 @@
+﻿@model List<Utilisateur>
+
+<h1>Résultats de la recherche</h1>
+
+<ul>
+    @foreach (var user in Model)
+    {
+        <li>@user.firstName @user.</li>
+    }
+</ul>

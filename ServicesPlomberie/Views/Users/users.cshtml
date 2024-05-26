@@ -1,0 +1,168 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject UserManager<Utilisateur> UserManager
+@inject RoleManager<IdentityRole> RoleManager
+
+
+@{
+    var allUsers = UserManager.Users.ToList();
+    var admins = await UserManager.GetUsersInRoleAsync("admin");
+    var users = await UserManager.GetUsersInRoleAsync("user");
+    var travailleur = await UserManager.GetUsersInRoleAsync("travailleur");
+
+}
+<h1>Liste des utilisateurs</h1>
+
+
+<b>Filter by:</b>
+<label for="all">All</label>
+<input type="radio" id="all" name="role" onchange="filterUsers()" checked>
+<label for="admin">Admin</label>
+<input type="radio" id="admin" name="role" onchange="filterUsers()">
+<label for="user">User</label>
+<input type="radio" id="user" name="role" onchange="filterUsers()">
+<label for="user">travailleur</label>
+<input type="radio" id="travailleur" name="role" onchange="filterUsers()">
+
+
+<form id="searchForm">
+    <input type="text" id="searchInput" onkeyup="filterUsers()" placeholder="Recherche par prénom ou nom...">
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Prénom</th>
+            <th>Nom</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody id="userTableBody">
+        @foreach (var user in allUsers)
+        {
+            <tr id="@user.Id" class="all">
+                <td>@user.firstName</td>
+                <td>@user.lastName</td>
+                <td>
+                    @{
+                        var roles = await UserManager.GetRolesAsync(user);
+                    }
+                    @foreach (var role in roles)
+                    {
+                        <span>@role</span>
+                        <br />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-primary">Delete</a>
+                </td>
+
+
+                
+            </tr>
+        }
+       
+        @foreach (var user in admins)
+        {
+            <tr id="@user.Id" class="admin">
+                <td>@user.firstName</td>
+                <td>@user.lastName</td>
+                <td>
+                    @{
+                        var roles = await UserManager.GetRolesAsync(user);
+                    }
+                    @foreach (var role in roles)
+                    {
+                        <span>@role</span>
+                        <br />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-primary">Delete</a>
+                </td>
+            </tr>
+        }
+        @foreach (var user in users)
+        {
+            <tr id="@user.Id" class="user" style="display:none;">
+                <td>@user.firstName</td>
+                <td>@user.lastName</td>
+                <td>
+                    @{
+                        var roles = await UserManager.GetRolesAsync(user);
+                    }
+                    @foreach (var role in roles)
+                    {
+                        <span>@role</span>
+                        <br />
+                    }
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-primary">Delete</a>
+                </td>
+            </tr>
+        }
+        @foreach (var user in travailleur)
+        {
+            <tr id="@user.Id" class="travailleur" style="display:none;">
+                <td>@user.firstName</td>
+                <td>@user.lastName</td>
+                <td>
+                    @{
+                        var roles = await UserManager.GetRolesAsync(user);
+                    }
+                    @foreach (var role in roles)
+                    {
+                        <span>@role</span>
+                        <br />
+                    }
+                </td>
+                <td>
+
+                <td>
+                    <a asp-action="Delete" asp-route-id="@user.Id" class="btn btn-primary">Delete</a>
+                </td>                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<script>
+    function filterUsers() {
+        var role = document.querySelector('input[name="role"]:checked').id;
+        var input = document.getElementById("searchInput").value.toUpperCase();
+        var users = document.querySelectorAll("#userTableBody tr");
+
+        for (var i = 0; i < users.length; i++) {
+            var userClassList = users[i].classList;
+
+            var userRole = userClassList.contains("admin")
+                ? "admin"
+                : userClassList.contains("user")
+                    ? "user"
+                    : userClassList.contains("travailleur")
+                        ? "travailleur"
+                        : "all";
+
+            var firstName = users[i].getElementsByTagName("td")[0].textContent.toUpperCase();
+            var lastName = users[i].getElementsByTagName("td")[1].textContent.toUpperCase();
+
+            if ((role === "admin" && userRole === "admin") ||
+                (role === "user" && userRole === "user") ||
+                (role === "travailleur" && userRole === "travailleur") ||
+                role === "all") {
+
+                if (firstName.includes(input) || lastName.includes(input) || input === "") {
+                    users[i].style.display = "";
+                } else {
+                    users[i].style.display = "none";
+                }
+            } else {
+                users[i].style.display = "none";
+            }
+        }
+    }
+
+</script>
+
+   
